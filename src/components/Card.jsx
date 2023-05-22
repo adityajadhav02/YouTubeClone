@@ -3,23 +3,24 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: ${(props) => props.type !== "sm" && "360px"};
-  margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
+  width: 300px
+  margin-bottom: 45px;
   cursor: pointer;
-  display: ${(props) => props.type === "sm" && "flex"};
+  display: "flex";
   gap: 10px;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: ${(props) => (props.type === "sm" ? "120px" : "202px")};
+  width: 230px;
+  height: 202px;
+  object-fit: contain;
   background-color: #999;
   flex: 1;
 `;
 
 const Details = styled.div`
   display: flex;
-  margin-top: ${(props) => props.type !== "sm" && "16px"};
+  margin-top: 16px;
   gap: 12px;
   flex: 1;
   ${'' /* color: "black"; */}
@@ -30,7 +31,7 @@ const ChannelImage = styled.img`
   height: 36px;
   border-radius: 50%;
   background-color: #999;
-  display: ${(props) => props.type === "sm" && "none"};
+  ${'' /* display: ${(props) => props.type === "sm" && "none"}; */}
 `;
 
 const Texts = styled.div``;
@@ -38,36 +39,34 @@ const Texts = styled.div``;
 const Title = styled.h1`
   font-size: 16px;
   font-weight: 500;
-  color: "black";
+  color: black;
 `;
 
 const ChannelName = styled.h2`
   font-size: 14px;
-  color: "606060";
+  color: #606060;
   margin: 9px 0px;
 `;
 
 const Info = styled.div`
   font-size: 14px;
-  color: "#606060";
+  color: #606060;
 `;
 
-const Card = ({ type }) => {
+const Card = ({thumbnail, title, channel, channelPic}) => {
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
-      <Container type={type}>
+      <Container>
         <Image
-          type={type}
-          src="/img/thumbnail.jpg"
+          src={thumbnail}
         />
-        <Details type={type}>
+        <Details>
           <ChannelImage
-            type={type}
-            src="/img/noProfile.png"
+            src={channelPic}
           />
           <Texts>
-            <Title>Test Title</Title>
-            <ChannelName>John Doe</ChannelName>
+            <Title>{title}</Title>
+            <ChannelName>{channel}</ChannelName>
             <Info>201,438 views • 5 days ago</Info>
           </Texts>
         </Details>

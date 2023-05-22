@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Link } from "react-router-dom";
 
 const Container = styled.div`
   position: sticky;
@@ -36,22 +35,16 @@ const Search = styled.div`
 
 const Input = styled.input`
   border: none;
-  background-color: transparent;
   outline: none;
   color: "black";
 `;
 
-const Button = styled.button`
-  padding: 5px 15px;
-  background-color: transparent;
-  border: 1px solid #3ea6ff;
+const Button = styled.div`
+  width: 40px;
+  height: 40px;
   color: #3ea6ff;
-  border-radius: 3px;
-  font-weight: 500;
+  border-radius: 50%;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
 `;
 const Navbar = () => {
   return (
@@ -61,12 +54,9 @@ const Navbar = () => {
           <Input placeholder="Search" />
           <SearchOutlinedIcon />
         </Search>
-        <Link to="signin" style={{ textDecoration: "none" }}>
-          <Button>
-            <AccountCircleOutlinedIcon />
-            SIGN IN
-          </Button>
-        </Link>
+        <Button>
+          <img style={{height: "40px", width: "40px", objectFit: "cover"}} src='/img/noProfile.png'></img>
+        </Button>
       </Wrapper>
     </Container>
   );
