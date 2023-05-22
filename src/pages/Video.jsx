@@ -4,6 +4,8 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import { useParams, useLocation, Link } from "react-router-dom";
+import ReactPlayer from "react-player";
 
 const Container = styled.div`
   display: flex;
@@ -98,27 +100,35 @@ const Subscribe = styled.button`
   cursor: pointer;
 `;
 
-const Video = () => {
+const Video = (props) => {
+  // fetch video id from params
+  const location = useLocation();
+  const video  = location.state;
+  const title= video.submission.title
+  const views= video.views
+  const channel= video.creator.name
+  const channelPic= video.creator.pic
+  const likes = video.reaction.count;
+
+  console.log(video);
+  const videoUrl = video.submission.mediaUrl;
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width="100%"
-            height="720"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          <ReactPlayer 
+            url={videoUrl} 
+            controls="true"
+            playing="true"
+          width="100%" height="450px" />
+          
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>{title ? title : "Video Title"}</Title>
         <Details>
-          <Info>7,948,154 views • Jun 22, 2022</Info>
+          <Info>75,342 views • May 22, 2023</Info>
           <Buttons>
             <Button>
-              <ThumbUpOutlinedIcon /> 123
+              <ThumbUpOutlinedIcon /> {likes}
             </Button>
             <Button>
               <ThumbDownOffAltOutlinedIcon /> Dislike
@@ -134,10 +144,10 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="/img/noProfile.png" />
+            <Image src={channelPic} />
             <ChannelDetail>
-              <ChannelName>YouTube</ChannelName>
-              <ChannelCounter>20M subscribers</ChannelCounter>
+              <ChannelName>{channel ? channel : "Creator"}</ChannelName>
+              <ChannelCounter>25K subscribers</ChannelCounter>
               <Description>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                 Doloribus laborum delectus unde quaerat dolore culpa sit aliquam

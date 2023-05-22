@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 300px
-  margin-bottom: 45px;
+  margin-bottom: 50px;
   cursor: pointer;
   display: "flex";
   gap: 10px;
@@ -12,9 +12,9 @@ const Container = styled.div`
 
 const Image = styled.img`
   width: 230px;
-  height: 202px;
+  height: 250px;
   object-fit: contain;
-  background-color: #999;
+  background-color: black;
   flex: 1;
 `;
 
@@ -53,9 +53,18 @@ const Info = styled.div`
   color: #606060;
 `;
 
-const Card = ({thumbnail, title, channel, channelPic}) => {
+const Card = ({video, id}) => {
+
+  // console.log(video);
+  const thumbnail= video.submission.thumbnail
+  const title= video.submission.title
+  const views= video.views
+  const channel= video.creator.name
+  const videoLink= video.submission.mediaUrl
+  const channelPic= video.creator.pic
+
   return (
-    <Link to="/video/test" style={{ textDecoration: "none" }}>
+    <Link to={"/videos/"+id} state={video} style={{ textDecoration: "none", marginBottom:"20px" }}>
       <Container>
         <Image
           src={thumbnail}
@@ -66,7 +75,7 @@ const Card = ({thumbnail, title, channel, channelPic}) => {
           />
           <Texts>
             <Title>{title}</Title>
-            <ChannelName>{channel}</ChannelName>
+            <ChannelName>{channel ? channel : "User"}</ChannelName>
             <Info>201,438 views • 5 days ago</Info>
           </Texts>
         </Details>

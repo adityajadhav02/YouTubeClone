@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
 const Container = styled.div`
   position: sticky;
   top: 0;
-  background-color: "white";
+  background-color: white;
+  flex: 999;
   height: 56px;
 `;
 
@@ -55,7 +55,7 @@ const Navbar = () => {
           <SearchOutlinedIcon />
         </Search>
         <Button>
-          <img style={{height: "40px", width: "40px", objectFit: "cover"}} src='/img/noProfile.png'></img>
+          <img style={{height: "45px", width: "45px", borderRadius:"50%", objectFit: "cover"}} src='/img/noProfile.png'></img>
         </Button>
       </Wrapper>
     </Container>

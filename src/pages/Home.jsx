@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Home = () => {
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [data, setData] = useState([]);
 
   const fetchData = async (page) => {
@@ -29,6 +29,18 @@ const Home = () => {
 
   const handlePageClick = (page) => {
     setCurrentPage(page);
+    // scroll to top with animation
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const renderPagination = () => {
@@ -38,8 +50,8 @@ const Home = () => {
         <button
           style={{ cursor: "pointer",
            padding: "5px 10px",
-            backgroundColor: `${currentPage? "red" : "gray"}`,
-            color:"white",
+            backgroundColor: `${currentPage==i-1? "red" : "lightgray"}`,
+            color:`${currentPage==i-1? "white" : "gray"}`,
             border:"none",
             borderRadius:"2px",
             margin: "5px",
@@ -56,25 +68,61 @@ const Home = () => {
   };
 
   return (
+    <>
     <Container>
         {data.map((item) => (
           <Card
             key={item.postId}
-            thumbnail={item.submission.thumbnail}
-            title={item.submission.title}
-            views={item.views}
-            channel={item.creator.name}
-            channelPic={item.creator.pic}
+            video={item}
+            id={item.postId}
+            
           />
         ))}
+    </Container>
 
-      {/* Pagination */}
-      <div className="pagination">
+    <div className="pagination"
+      style={{
+        display: "flex",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "20px 0px",
+      }}
+    >
+        <button
+            style={{ 
+                cursor: "pointer",
+                padding: "5px 10px",
+                backgroundColor: "red",
+                color:"white",
+                border:"none",
+                borderRadius:"2px",
+                margin: "5px",
+             }}
+            onClick={handlePreviousPage}
+            disabled={currentPage === 0}
+          >
+            &lt; 
+        </button>
         {renderPagination()}
+        <span>... </span>
+        <button
+          style={{ 
+                cursor: "pointer",
+                padding: "5px 10px",
+                backgroundColor: "red",
+                color:"white",
+                border:"none",
+                borderRadius:"2px",
+                margin: "5px",
+          }}
+          onClick={handleNextPage}
+        >
+           &gt;
+        </button>
       </div>
 
-
-    </Container>
+    </>
   );
 };
 
